@@ -8,8 +8,7 @@ def bisection_method(func, xl, xu, true_value, max_iter=50, tolerance=1e-5):
         "xr": [],
         "f(xl)": [],
         "f(xu)": [],
-        "f(xr)": [],
-        "f(xl)*f(xr)": [],
+        "f(xl)*f(xu)": [],
         "ea": [],
         "ep": []
     }
@@ -23,7 +22,6 @@ def bisection_method(func, xl, xu, true_value, max_iter=50, tolerance=1e-5):
         xr = (xl + xu) / 2.0
         f_xl = func(xl)
         f_xu = func(xu)
-        f_xr = func(xr)
         f_xl_x_f_xu = f_xl * f_xu
         
         ea = abs((xr - xu) / xr) * 100 if xr != 0 else None
@@ -34,8 +32,7 @@ def bisection_method(func, xl, xu, true_value, max_iter=50, tolerance=1e-5):
         result["xr"].append(xr)
         result["f(xl)"].append(f_xl)
         result["f(xu)"].append(f_xu)
-        result["f(xr)"].append(f_xr)
-        result["f(xl)*f(xr)"].append(f_xl_x_f_xu)
+        result["f(xl)*f(xu)"].append(f_xl_x_f_xu)
         result["ea"].append(ea)
         result["ep"].append(ep)
         
@@ -58,14 +55,15 @@ def bisection_method(func, xl, xu, true_value, max_iter=50, tolerance=1e-5):
 def print_iteration_table(result):
     """
     Imprime una tabla con los resultados de cada iteración.
+
     """
-    headers = ["Iteración", "xl", "xu", "xr", "f(xl)", "f(xu)", "f(xr)", "f(xl)*f(xr)", "Error relativo porcentual (ea)", "Error porcentual (ep)"]
-    print("{:<10} {:<15} {:<15} {:<15} {:<15} {:<15} {:<15} {:<15} {:<35} {:<20}".format(*headers))
+    headers = ["Iteración", "xl", "xu", "xr", "f(xl)", "f(xu)", "f(xl)*f(xu)", "Error relativo porcentual (ea)", "Error porcentual (ep)"]
+    print("{:<10} {:<15} {:<15} {:<15} {:<15} {:<15} {:<15} {:<35} {:<20}".format(*headers))
     
     for i in range(len(result["xl"])):
         values = [i+1, result["xl"][i], result["xu"][i], result["xr"][i], result["f(xl)"][i], result["f(xu)"][i],
-                result["f(xr)"][i], result["f(xl)*f(xr)"][i], result["ea"][i], result["ep"][i]]
-        print("{:<10} {:<15.6f} {:<15.6f} {:<15.6f} {:<15.6f} {:<15.6f} {:<15.6f} {:<15.6f} {:<35} {:<20}".format(*values))
+                result["f(xl)*f(xu)"][i], result["ea"][i], result["ep"][i]]
+        print("{:<10} {:<15.6f} {:<15.6f} {:<15.6f} {:<15.6f} {:<15.6f} {:<15.6f} {:<35} {:<20}".format(*values))
 
 # Ejemplo de uso:
 def get_function():
