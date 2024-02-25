@@ -1,14 +1,11 @@
 def bisection_method(func, xl, xu, true_value, max_iter=50, tolerance=1e-5):
-    """
-    Método de la bisección para encontrar la raíz de una función.
-    """
     result = {
         "xl": [],
         "xu": [],
         "xr": [],
         "f(xl)": [],
-        "f(xu)": [],
-        "f(xl)*f(xu)": [],
+        "f(xr)": [],
+        "f(xl)*f(xr)": [],
         "ea": [],
         "ep": []
     }
@@ -21,8 +18,8 @@ def bisection_method(func, xl, xu, true_value, max_iter=50, tolerance=1e-5):
     while iter_count < max_iter:
         xr = (xl + xu) / 2.0
         f_xl = func(xl)
-        f_xu = func(xu)
-        f_xl_x_f_xu = f_xl * f_xu
+        f_xr = func(xr)
+        f_xl_x_f_xu = f_xl * f_xr
         
         ea = abs((xr - xu) / xr) * 100 if xr != 0 else None
         ep = abs((true_value - xr) / true_value) * 100
@@ -31,8 +28,8 @@ def bisection_method(func, xl, xu, true_value, max_iter=50, tolerance=1e-5):
         result["xu"].append(xu)
         result["xr"].append(xr)
         result["f(xl)"].append(f_xl)
-        result["f(xu)"].append(f_xu)
-        result["f(xl)*f(xu)"].append(f_xl_x_f_xu)
+        result["f(xr)"].append(f_xr)
+        result["f(xl)*f(xr)"].append(f_xl_x_f_xu)
         result["ea"].append(ea)
         result["ep"].append(ep)
         
@@ -53,23 +50,17 @@ def bisection_method(func, xl, xu, true_value, max_iter=50, tolerance=1e-5):
     return result
 
 def print_iteration_table(result):
-    """
-    Imprime una tabla con los resultados de cada iteración.
 
-    """
-    headers = ["Iteración", "xl", "xu", "xr", "f(xl)", "f(xu)", "f(xl)*f(xu)", "Error relativo porcentual (ea)", "Error porcentual (ep)"]
+    headers = ["Iteración", "xl", "xu", "xr", "f(xl)", "f(xr)", "f(xl)*f(xr)", "Error relativo porcentual (ea)", "Error porcentual (ep)"]
     print("{:<10} {:<15} {:<15} {:<15} {:<15} {:<15} {:<15} {:<35} {:<20}".format(*headers))
     
     for i in range(len(result["xl"])):
-        values = [i+1, result["xl"][i], result["xu"][i], result["xr"][i], result["f(xl)"][i], result["f(xu)"][i],
-                result["f(xl)*f(xu)"][i], result["ea"][i], result["ep"][i]]
+        values = [i+1, result["xl"][i], result["xu"][i], result["xr"][i], result["f(xl)"][i], result["f(xr)"][i],
+                result["f(xl)*f(xr)"][i], result["ea"][i], result["ep"][i]]
         print("{:<10} {:<15.6f} {:<15.6f} {:<15.6f} {:<15.6f} {:<15.6f} {:<15.6f} {:<35} {:<20}".format(*values))
-
-# Ejemplo de uso:
+        
 def get_function():
-    """
-    Solicita al usuario ingresar una función en forma de cadena y la convierte en una función de Python.
-    """
+
     import sympy as sp
     
     while True:
