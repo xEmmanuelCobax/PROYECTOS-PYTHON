@@ -1,17 +1,6 @@
 def bisection_method(func, xl, xu, true_value, max_iter=50, tolerance=1e-5):
     """
     Método de la bisección para encontrar la raíz de una función.
-    
-    Parámetros:
-        func (función): La función para la cual encontrar la raíz.
-        xl (float): Límite inferior del intervalo inicial.
-        xu (float): Límite superior del intervalo inicial.
-        true_value (float): Valor verdadero de la raíz (para calcular el error porcentual).
-        max_iter (int): Número máximo de iteraciones permitidas.
-        tolerance (float): Tolerancia para la convergencia.
-    
-    Devuelve:
-        result (dict): Diccionario con los resultados de la iteración.
     """
     result = {
         "xl": [],
@@ -52,7 +41,8 @@ def bisection_method(func, xl, xu, true_value, max_iter=50, tolerance=1e-5):
         
         if ea and ea <= tolerance:
             break
-        
+        if ea<es:
+            break
         if f_xl_x_f_xu< 0:
             xu = xr
         elif f_xl_x_f_xu > 0:
@@ -68,9 +58,6 @@ def bisection_method(func, xl, xu, true_value, max_iter=50, tolerance=1e-5):
 def print_iteration_table(result):
     """
     Imprime una tabla con los resultados de cada iteración.
-    
-    Parámetros:
-        result (dict): Diccionario con los resultados de la iteración.
     """
     headers = ["Iteración", "xl", "xu", "xr", "f(xl)", "f(xu)", "f(xr)", "f(xl)*f(xr)", "Error relativo porcentual (ea)", "Error porcentual (ep)"]
     print("{:<10} {:<15} {:<15} {:<15} {:<15} {:<15} {:<15} {:<15} {:<35} {:<20}".format(*headers))
@@ -84,9 +71,6 @@ def print_iteration_table(result):
 def get_function():
     """
     Solicita al usuario ingresar una función en forma de cadena y la convierte en una función de Python.
-    
-    Devuelve:
-        función: La función ingresada por el usuario.
     """
     import sympy as sp
     
@@ -103,6 +87,7 @@ func = get_function()
 xl = float(input("Ingrese el valor de xl: "))
 xu = float(input("Ingrese el valor de xu: "))
 true_value = float(input("Ingrese el valor verdadero de la raíz: "))
+es = float(input("Ingrese el valor de Es: "))
 
 result = bisection_method(func, xl, xu, true_value)
 print_iteration_table(result)
