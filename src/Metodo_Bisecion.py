@@ -35,7 +35,7 @@ def bisection_method(func, xl, xu, true_value, max_iter=50, tolerance=1e-5):
         
         if ea and ea <= tolerance:
             break
-        if ea<es:
+        if ea < es:
             break
         if f_xl_x_f_xu< 0:
             xu = xr
