@@ -63,7 +63,7 @@ x1 = 60  # Estimación superior
 es = 0.1  # Nivel de error especificado (%)
 
 # Calcular la masa utilizando el método de la falsa posición
-result = false_position_method(lambda m: velocity_equation(m, 9) - 35, x0, x1, es / 100)
+result = false_position_method(lambda m: velocity_equation(m, 9) - 35, x0, x1, es)
 
 # Mostrar resultados en tabla por cada iteración
 print_iteration_table(result)
