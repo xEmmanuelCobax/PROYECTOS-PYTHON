@@ -1,10 +1,10 @@
 import numpy as np
 
 def funcion(x):
-    return np.exp(-x) - x
+    return 2 * (x**2) - 10*x + 4
 
 def derivada_funcion(x):
-    return -np.exp(-x) - 1
+    return 4*x-10
 
 def newton_raphson(func, derivada, x0, tolerancia, max_iter, valor_verdadero):
     iteracion = 0
