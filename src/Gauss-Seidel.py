@@ -4,6 +4,7 @@ def gauss_seidel(A, b, x0, tol, max_iter):
     iteraciones = [x.copy()]
     dif = tol + 1
     k = 0
+    repeticiones = 0  # Contador para contar las veces que se repiten los números en la solución
     
     while dif > tol and k < max_iter:
         x_ant = x.copy()
@@ -17,6 +18,15 @@ def gauss_seidel(A, b, x0, tol, max_iter):
         
         dif = max(errores_relativos)
         iteraciones.append(x.copy())
+        
+        # Verificar si la solución se repite
+        if x == x_ant:
+            repeticiones += 1
+            if repeticiones == 2:
+                print("La solución se ha estabilizado. Deteniendo las iteraciones.")
+                break
+        else:
+            repeticiones = 0  # Reiniciar el contador si la solución cambia
         k += 1
         
     return x, iteraciones
@@ -92,9 +102,9 @@ else:
     for k, iteracion in enumerate(iteraciones):
         print(f"{k}\t", end="")
         for valor in iteracion:
-            print(f"{valor:.4f}\t", end="")
+            print(f"{valor:.6f}\t", end="")  # Ajuste para mostrar más decimales
         print()
 
     print("\nSolución final:")
     for i in range(tamano_sistema):
-        print(f"x{i+1} = {solucion[i]:.4f}")
+        print(f"x{i+1} = {solucion[i]:.6f}")  # Ajuste para mostrar más decimales
